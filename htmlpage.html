@@ -1,0 +1,524 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login — Cineworld </title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #54c2c4;
+            --panel: #111318;
+            --border: rgba(255,255,255,0.07);
+            --accent: #e3c45d;
+            --accent-dim: #8a6f42;
+            --text: #dbdbdb;
+            --muted: #ffffff;
+            --error: #c0665a;
+            --input-bg: #0d0e12;
+            --glow: rgba(200,169,110,0.15);
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'DM Mono', monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+            /* Background grid */
+            body::before {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+                background-size: 48px 48px;
+                pointer-events: none;
+            }
+
+            /* glow */
+            body::after {
+                content: '';
+                position: fixed;
+                top: 40%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 600px;
+                height: 400px;
+                background: radial-gradient(ellipse, rgba(200,169,110,0.07) 0%, transparent 70%);
+                pointer-events: none;
+            }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 420px;
+            padding: 0 24px;
+            animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Brand mark */
+        .brand {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .brand-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--accent);
+            transform: rotate(45deg);
+            margin-bottom: 18px;
+            position: relative;
+            animation: spinIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+        }
+
+            .brand-icon::after {
+                content: '';
+                position: absolute;
+                inset: 6px;
+                background: var(--accent);
+                opacity: 0.25;
+            }
+
+        @keyframes spinIn {
+            from {
+                opacity: 0;
+                transform: rotate(0deg) scale(0.6);
+            }
+
+            to {
+                opacity: 1;
+                transform: rotate(45deg) scale(1);
+            }
+        }
+
+        .brand-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: 28px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--text);
+        }
+
+        .brand-tagline {
+            font-size: 10px;
+            letter-spacing: 0.18em;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        /* Card */
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 40px 36px 36px;
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.5), 0 32px 64px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04);
+            animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+        }
+
+        .card-header {
+            margin-bottom: 28px;
+        }
+
+        .card-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            font-size: 22px;
+            letter-spacing: 0.05em;
+            color: var(--text);
+        }
+
+        .card-subtitle {
+            font-size: 11px;
+            color: var(--muted);
+            letter-spacing: 0.08em;
+            margin-top: 6px;
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin-bottom: 28px;
+        }
+
+        /* Form fields */
+        .field {
+            margin-bottom: 20px;
+        }
+
+            .field label {
+                display: block;
+                font-size: 10px;
+                letter-spacing: 0.15em;
+                text-transform: uppercase;
+                color: var(--muted);
+                margin-bottom: 8px;
+                transition: color 0.2s;
+            }
+
+            .field:focus-within label {
+                color: var(--accent);
+            }
+
+        .input-wrap {
+            position: relative;
+        }
+
+            .input-wrap input {
+                width: 100%;
+                background: var(--input-bg);
+                border: 1px solid var(--border);
+                border-radius: 2px;
+                padding: 11px 14px;
+                font-family: 'DM Mono', monospace;
+                font-size: 13px;
+                color: var(--text);
+                outline: none;
+                transition: border-color 0.25s, box-shadow 0.25s;
+                letter-spacing: 0.04em;
+            }
+
+                .input-wrap input::placeholder {
+                    color: var(--muted);
+                    opacity: 0.5;
+                }
+
+                .input-wrap input:focus {
+                    border-color: var(--accent-dim);
+                    box-shadow: 0 0 0 3px var(--glow);
+                }
+
+        /* Password toggle */
+        .toggle-pw {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--muted);
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-family: 'DM Mono', monospace;
+            padding: 4px;
+            transition: color 0.2s;
+        }
+
+            .toggle-pw:hover {
+                color: var(--accent);
+            }
+
+        /* Row: remember & forgot */
+        .row-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+            margin-top: 4px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+            .remember input[type="checkbox"] {
+                appearance: none;
+                -webkit-appearance: none;
+                width: 14px;
+                height: 14px;
+                border: 1px solid var(--border);
+                background: var(--input-bg);
+                border-radius: 1px;
+                cursor: pointer;
+                position: relative;
+                transition: border-color 0.2s, background 0.2s;
+            }
+
+                .remember input[type="checkbox"]:checked {
+                    background: var(--accent);
+                    border-color: var(--accent);
+                }
+
+                    .remember input[type="checkbox"]:checked::after {
+                        content: '';
+                        position: absolute;
+                        left: 3px;
+                        top: 1px;
+                        width: 5px;
+                        height: 8px;
+                        border: 1.5px solid #0b0c0f;
+                        border-top: none;
+                        border-left: none;
+                        transform: rotate(40deg);
+                    }
+
+            .remember span {
+                font-size: 11px;
+                color: var(--muted);
+                letter-spacing: 0.08em;
+            }
+
+        .forgot {
+            font-size: 11px;
+            color: var(--muted);
+            letter-spacing: 0.08em;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+            .forgot:hover {
+                color: var(--accent);
+            }
+
+        /* Submit button */
+        .btn-submit {
+            width: 100%;
+            padding: 13px;
+            background: var(--accent);
+            border: none;
+            border-radius: 2px;
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #0b0c0f;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.25s, box-shadow 0.25s, transform 0.15s;
+        }
+
+            .btn-submit::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: rgba(255,255,255,0.1);
+                opacity: 0;
+                transition: opacity 0.2s;
+            }
+
+            .btn-submit:hover {
+                background: #d4b478;
+                box-shadow: 0 6px 24px rgba(200,169,110,0.3);
+                transform: translateY(-1px);
+            }
+
+                .btn-submit:hover::before {
+                    opacity: 1;
+                }
+
+            .btn-submit:active {
+                transform: translateY(0);
+                box-shadow: none;
+            }
+
+        /* Error message */
+        .error-msg {
+            display: none;
+            font-size: 11px;
+            color: var(--error);
+            letter-spacing: 0.08em;
+            margin-top: 12px;
+            text-align: center;
+        }
+
+            .error-msg.visible {
+                display: block;
+                animation: shake 0.35s ease;
+            }
+
+        @keyframes shake {
+            0%,100% {
+                transform: translateX(0);
+            }
+
+            20% {
+                transform: translateX(-6px);
+            }
+
+            40% {
+                transform: translateX(6px);
+            }
+
+            60% {
+                transform: translateX(-4px);
+            }
+
+            80% {
+                transform: translateX(4px);
+            }
+        }
+
+        /* Footer */
+        .card-footer {
+            margin-top: 24px;
+            text-align: center;
+            font-size: 11px;
+            color: var(--muted);
+            letter-spacing: 0.08em;
+        }
+
+            .card-footer a {
+                color: var(--accent);
+                text-decoration: none;
+                transition: opacity 0.2s;
+            }
+
+                .card-footer a:hover {
+                    opacity: 0.75;
+                }
+
+        /* Bottom meta */
+        .meta {
+            text-align: center;
+            margin-top: 28px;
+            font-size: 10px;
+            color: var(--muted);
+            opacity: 0.5;
+            letter-spacing: 0.12em;
+            animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="brand">
+            <div class="brand-icon"></div>
+            <div class="brand-name">Cineworld </div>
+            <div class="brand-tagline">Login Page</div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Sign in</div>
+                <div class="card-subtitle">Enter your Username and Password to continue</div>
+            </div>
+            <div class="divider"></div>
+
+            <div class="field">
+                <label for="username">Username</label>
+                <div class="input-wrap">
+                    <input type="text"
+                           id="username"
+                           placeholder="User"
+                           autocomplete="username" />
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="password">Password</label>
+                <div class="input-wrap">
+                    <input type="password"
+                           id="password"
+                           placeholder="••••••••••••"
+                           autocomplete="current-password" />
+                    <button class="toggle-pw" type="button" onclick="togglePassword(this)" aria-label="Toggle password visibility">show</button>
+                </div>
+            </div>
+
+            <div class="row-options">
+                <label class="remember">
+                    <input type="checkbox" id="remember" />
+                    <span>Remember me</span>
+                </label>
+                <a href="#" class="forgot">Forgot password?</a>
+            </div>
+
+            <button class="btn-submit" onclick="handleLogin()">
+                Login
+            </button>
+
+            <div class="error-msg" id="error-msg">
+                Invalid credentials — please try again.
+            </div>
+        </div>
+
+        <div class="card-footer">
+            Don't have an account? <a href="#">Request access →</a>
+        </div>
+
+        <div class="meta">Cineworld</div>
+    </div>
+
+    <script>function togglePassword(btn) {
+      const input = document.getElementById('password');
+      const isHidden = input.type === 'password';
+      input.type = isHidden ? 'text' : 'password';
+      btn.textContent = isHidden ? 'hide' : 'show';
+    }
+
+    function handleLogin() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const errorMsg = document.getElementById('error-msg');
+
+      errorMsg.classList.remove('visible');
+
+      if (!username || !password) {
+        // Re-trigger animation
+        void errorMsg.offsetWidth;
+        errorMsg.textContent = 'Please enter your username and password.';
+        errorMsg.classList.add('visible');
+        return;
+      }
+
+      // Demo(replace with real auth)
+      if (username.length >= 3 && password.length >= 6) {
+        document.querySelector('.btn-submit').textContent = 'Logged In !';
+        document.querySelector('.btn-submit').style.background = '#4a8c6a';
+      } else {
+        void errorMsg.offsetWidth;
+        errorMsg.textContent = 'Invalid Username or Password — please try again.';
+        errorMsg.classList.add('visible');
+      }
+    }
+
+    // Allow Enter key to login the user
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') handleLogin();
+    });</script>
+
+</body>
+</html>

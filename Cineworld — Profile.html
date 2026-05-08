@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<!-- saved from url=(0030)file:///H:/profile%20page.htm# -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cineworld — Profile</title>
+<link href="./Cineworld — Profile_files/css2" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --surface2: #1a1a1a;
+    --border: #2a2a2a;
+    --gold: #c9a84c;
+    --gold-dim: #8a6f30;
+    --red: #e03535;
+    --text: #f0ede8;
+    --muted: #666;
+    --muted2: #444;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Film grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.6;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 64px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  .logo span { color: var(--text); }
+
+  nav-links { display: flex; gap: 32px; }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .nav-link {
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-link:hover, .nav-link.active { color: var(--text); }
+  .nav-link.active { color: var(--gold); }
+
+  .nav-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 2px solid var(--gold);
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .nav-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* MAIN LAYOUT */
+  .page {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 56px 48px;
+  }
+
+  .page-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 56px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .page-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    letter-spacing: 4px;
+    color: var(--text);
+  }
+
+  .page-title span { color: var(--gold); }
+
+  .page-subtitle {
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* PROFILE GRID */
+  .profile-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  /* LEFT PANEL */
+  .left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    animation: fadeUp 0.5s 0.1s ease both;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+
+  /* AVATAR SECTION */
+  .avatar-wrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 24px;
+    cursor: pointer;
+  }
+
+  .avatar-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    border: 3px solid var(--gold);
+    background: var(--surface2);
+  }
+
+  .avatar-placeholder {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 3px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--gold);
+    letter-spacing: 2px;
+  }
+
+  .avatar-overlay {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+    gap: 6px;
+  }
+
+  .avatar-wrapper:hover .avatar-overlay { opacity: 1; }
+
+  .avatar-overlay svg { color: var(--gold); }
+
+  .avatar-overlay span {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  #avatar-input { display: none; }
+
+  .username {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 3px;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+
+  .user-handle {
+    font-size: 13px;
+    color: var(--gold);
+    text-align: center;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  .user-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 0;
+  }
+
+  .stat-item {
+    background: var(--surface);
+    padding: 14px 8px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: var(--gold);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* BIO FORM */
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .form-field {
+    margin-bottom: 20px;
+  }
+
+  .form-field label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .form-field input,
+  .form-field textarea {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    padding: 12px 16px;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: none;
+  }
+
+  .form-field input:focus,
+  .form-field textarea:focus {
+    border-color: var(--gold);
+  }
+
+  .form-field input::placeholder,
+  .form-field textarea::placeholder {
+    color: var(--muted2);
+  }
+
+  .form-field textarea { min-height: 120px; line-height: 1.6; }
+
+  .char-count {
+    text-align: right;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+
+  .btn-gold {
+    background: var(--gold);
+    color: #0a0a0a;
+  }
+
+  .btn-gold:hover {
+    background: #d4b35c;
+    transform: translateY(-1px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .btn-danger {
+    background: transparent;
+    color: var(--red);
+    border: 1px solid transparent;
+    padding: 8px 0;
+    font-size: 11px;
+  }
+
+  .btn-danger:hover { border-bottom: 1px solid var(--red); }
+
+  .save-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .save-success {
+    font-size: 12px;
+    color: #5cb85c;
+    letter-spacing: 1px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .save-success.show { opacity: 1; }
+
+  /* RIGHT PANEL */
+  .right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    animation: fadeUp 0.5s 0.2s ease both;
+  }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+  }
+
+  .tab {
+    padding: 14px 28px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-family: 'DM Sans', sans-serif;
+    margin-bottom: -1px;
+  }
+
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* UPLOADS GRID */
+  .uploads-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .upload-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+  }
+
+  .upload-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-3px);
+  }
+
+  .upload-thumb {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    display: block;
+    background: var(--surface2);
+  }
+
+  .upload-thumb-placeholder {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: var(--surface2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: var(--muted2);
+    position: relative;
+  }
+
+  .upload-type-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(0,0,0,0.8);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .upload-duration {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.85);
+    color: var(--text);
+    font-size: 11px;
+    padding: 2px 6px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .upload-info {
+    padding: 14px 16px;
+  }
+
+  .upload-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .upload-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .upload-date {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+
+  .upload-views {
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .upload-actions {
+    display: flex;
+    gap: 8px;
+    padding: 0 16px 14px;
+  }
+
+  .upload-action-btn {
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: none;
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+  }
+
+  .upload-action-btn:hover { color: var(--gold); border-color: var(--gold); }
+  .upload-action-btn.del:hover { color: var(--red); border-color: var(--red); }
+
+  /* EMPTY STATE */
+  .empty-state {
+    grid-column: 1 / -1;
+    padding: 64px 32px;
+    text-align: center;
+    border: 1px dashed var(--border);
+  }
+
+  .empty-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.3;
+  }
+
+  .empty-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .empty-sub {
+    font-size: 13px;
+    color: var(--muted2);
+  }
+
+  /* UPLOAD NEW */
+  .upload-new-area {
+    border: 1px dashed var(--border);
+    padding: 40px;
+    text-align: center;
+    transition: border-color 0.2s, background 0.2s;
+    cursor: pointer;
+  }
+
+  .upload-new-area:hover {
+    border-color: var(--gold);
+    background: rgba(201, 168, 76, 0.03);
+  }
+
+  .upload-new-icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+    color: var(--gold);
+    opacity: 0.6;
+  }
+
+  .upload-new-text {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .upload-new-sub {
+    font-size: 11px;
+    color: var(--muted2);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    width: 480px;
+    max-width: 90vw;
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.25s;
+  }
+
+  .modal-overlay.open .modal { transform: translateY(0); }
+
+  .modal::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .modal-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 3px;
+    color: var(--gold);
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    padding: 4px;
+    transition: color 0.2s;
+  }
+
+  .modal-close:hover { color: var(--text); }
+
+  .modal-body { padding: 28px; }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background: var(--surface);
+    border: 1px solid var(--gold);
+    padding: 16px 24px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    z-index: 300;
+    transform: translateX(120%);
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .toast.show { transform: translateX(0); }
+  .toast-icon { color: var(--gold); font-size: 16px; }
+
+  /* FILMSTRIP TOP DECORATION */
+  .filmstrip {
+    height: 24px;
+    background: #111;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 0;
+    overflow: hidden;
+  }
+
+  .film-hole {
+    width: 20px;
+    height: 14px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    margin: 5px 6px;
+    flex-shrink: 0;
+    border-radius: 2px;
+  }
+
+  /* TAB PANELS */
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ACCOUNT SETTINGS */
+  .settings-section {
+    margin-bottom: 32px;
+  }
+
+  .danger-zone {
+    border: 1px solid #3a1515;
+    padding: 24px;
+    background: rgba(224, 53, 53, 0.03);
+  }
+
+  .danger-zone .section-label { color: var(--red); }
+  .danger-zone .section-label::after { background: #3a1515; }
+
+  .danger-desc {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  .btn-red {
+    background: transparent;
+    color: var(--red);
+    border: 1px solid var(--red);
+    padding: 10px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-red:hover { background: var(--red); color: white; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--muted2); }
+</style>
+</head>
+<body>
+
+<div class="filmstrip" id="filmstrip"><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div></div>
+
+<nav>
+  <a href="file:///H:/profile%20page.htm#" class="logo">CINE<span>WORLD</span></a>
+  <div class="nav-right">
+    <a href="file:///H:/profile%20page.htm#" class="nav-link">Search</a>
+    <a href="file:///H:/profile%20page.htm#" class="nav-link">Upload</a>
+    
+    <div class="nav-avatar" onclick="scrollToTop()">
+      <div id="nav-avatar-preview" style="width:100%;height:100%;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-family:&#39;Bebas Neue&#39;,sans-serif;font-size:16px;color:var(--gold);">JR</div>
+    </div>
+  </div>
+</nav>
+
+<main class="page">
+  <div class="page-header">
+    <h1 class="page-title">MY <span>PROFILE</span></h1>
+    <span class="page-subtitle">/ Manage your account</span>
+  </div>
+
+  <div class="profile-grid">
+
+    <!-- LEFT: Identity Card -->
+    <div class="left-panel">
+      <div class="card">
+        <div class="avatar-wrapper" onclick="document.getElementById(&#39;avatar-input&#39;).click()">
+          <div class="avatar-placeholder" id="avatar-display">JM</div>
+          <div class="avatar-overlay">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+            <span>Change</span>
+          </div>
+        </div>
+        <input type="file" id="avatar-input" accept="image/*" onchange="handleAvatarChange(event)">
+
+        <div class="username" id="display-name">Jenson McMahon</div>
+        <div class="user-handle">@jmcmahon</div>
+
+        <div class="user-stats">
+          <div class="stat-item">
+            <span class="stat-num" id="stat-uploads">14</span>
+            <span class="stat-label">Uploads</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">4.2K</span>
+            <span class="stat-label">Views</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">87</span>
+            <span class="stat-label">Followers</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit Bio -->
+      <div class="card">
+        <div class="section-label">Edit Profile</div>
+
+        <div class="form-field">
+          <label>Display Name</label>
+          <input type="text" id="input-name" value="Jenson McMahon" oninput="document.getElementById(&#39;display-name&#39;).textContent=this.value">
+        </div>
+
+        <div class="form-field">
+          <label>Bio</label>
+          <textarea id="input-bio" maxlength="200" oninput="updateCharCount(this)" placeholder="Tell the world about your love of cinema…">Independent filmmaker. Obsessed with French New Wave and late-night horror. Currently working on a short documentary about drive-in theatres.</textarea>
+          <div class="char-count"><span id="char-count">0</span> / 200</div>
+        </div>
+
+        <div class="form-field">
+          <label>Location</label>
+          <input type="text" id="input-location" value="Belfast, Northern Ireland" placeholder="Where in the world?">
+        </div>
+
+        <div class="form-field">
+          
+          
+        </div>
+
+        <div class="save-row">
+          <button class="btn btn-gold" onclick="saveProfile()">Save Changes</button>
+          <span class="save-success" id="save-success">✓ Saved</span>
+        </div>
+      </div>
+
+      <!-- Danger Zone -->
+      <div class="card">
+        
+        <button class="btn btn-danger" onclick="showModal(&#39;delete-modal&#39;)">Delete Account</button>
+      </div>
+    </div>
+
+    <!-- RIGHT: Content -->
+    <div class="right-panel">
+      <div>
+        <div class="tabs">
+          <button class="tab active" onclick="switchTab(&#39;uploads&#39;, this)">My Uploads</button>
+          <button class="tab" onclick="switchTab(&#39;drafts&#39;, this)">Drafts</button>
+          <button class="tab" onclick="switchTab(&#39;settings&#39;, this)">Account Settings</button>
+        </div>
+
+        <!-- UPLOADS TAB -->
+        
+
+        <!-- DRAFTS TAB -->
+        <div class="tab-panel" id="tab-drafts">
+          <div class="uploads-grid" id="drafts-grid">
+      <div class="upload-card" id="card-7">
+        <div class="upload-thumb-placeholder">
+          👁️
+          <div class="upload-type-badge">Short Film</div>
+          
+        </div>
+        <div class="upload-info">
+          <div class="upload-title">Untitled Horror Project</div>
+          <div class="upload-meta">
+            <span class="upload-date">Draft — 3 May 2025</span>
+            <span class="upload-views">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              —
+            </span>
+          </div>
+        </div>
+        <div class="upload-actions">
+          <button class="upload-action-btn" onclick="editUpload(7, &#39;Untitled Horror Project&#39;)">Edit</button>
+          <button class="upload-action-btn" onclick="">Publish</button>
+          <button class="upload-action-btn del" onclick="deleteUpload(7)">Remove</button>
+        </div>
+      </div>
+      <div class="upload-card" id="card-8">
+        <div class="upload-thumb-placeholder">
+          🇮🇪
+          <div class="upload-type-badge">Documentary</div>
+          
+        </div>
+        <div class="upload-info">
+          <div class="upload-title">Irish Cinema History</div>
+          <div class="upload-meta">
+            <span class="upload-date">Draft — 28 Apr 2025</span>
+            <span class="upload-views">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              —
+            </span>
+          </div>
+        </div>
+        <div class="upload-actions">
+          <button class="upload-action-btn" onclick="editUpload(8, &#39;Irish Cinema History&#39;)">Edit</button>
+          <button class="upload-action-btn" onclick="">Publish</button>
+          <button class="upload-action-btn del" onclick="deleteUpload(8)">Remove</button>
+        </div>
+      </div></div>
+        </div>
+
+        <!-- SETTINGS TAB -->
+        <div class="tab-panel" id="tab-settings">
+          <div class="settings-section card">
+            <div class="section-label">Notifications</div>
+            <div style="display:flex;flex-direction:column;gap:16px;">
+              <label style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:14px;">
+                New followers
+                <input type="checkbox" checked="" style="accent-color:var(--gold);width:16px;height:16px;">
+              </label>
+              <label style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:14px;">
+                Comments on your uploads
+                <input type="checkbox" checked="" style="accent-color:var(--gold);width:16px;height:16px;">
+              </label>
+              <label style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:14px;">
+                Weekly digest
+                <input type="checkbox" style="accent-color:var(--gold);width:16px;height:16px;">
+              </label>
+              <label style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:14px;">
+                Featured on Discover
+                <input type="checkbox" checked="" style="accent-color:var(--gold);width:16px;height:16px;">
+              </label>
+            </div>
+          </div>
+
+          <div class="settings-section card" style="margin-top:24px;">
+            <div class="section-label">Privacy</div>
+            <div style="display:flex;flex-direction:column;gap:16px;">
+              <label style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:14px;">
+                Public profile
+                <input type="checkbox" checked="" style="accent-color:var(--gold);width:16px;height:16px;">
+              </label>
+              <label style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:14px;">
+                Show upload view counts
+                <input type="checkbox" checked="" style="accent-color:var(--gold);width:16px;height:16px;">
+              </label>
+              <label style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:14px;">
+                Allow direct messages
+                <input type="checkbox" style="accent-color:var(--gold);width:16px;height:16px;">
+              </label>
+            </div>
+          </div>
+
+          <div class="settings-section danger-zone" style="margin-top:24px;">
+            <div class="section-label">Danger Zone</div>
+            <p class="danger-desc">Permanently delete your account and all uploaded content. This action cannot be undone.</p>
+            <button class="btn-red" onclick="showModal(&#39;delete-modal&#39;)">Delete Account</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Upload Modal -->
+<div class="modal-overlay" id="upload-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">Edit Upload</span>
+      <button class="modal-close" onclick="hideModal(&#39;upload-modal&#39;)">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-field">
+        <label>Title</label>
+        <input type="text" id="modal-title" placeholder="Film title">
+      </div>
+      <div class="form-field">
+        <label>Genre</label>
+        <input type="text" id="modal-genre" placeholder="e.g. Short Film, Review, Essay">
+      </div>
+      <div class="form-field">
+        <label>Description</label>
+        <textarea id="modal-desc" placeholder="Describe this upload…" style="min-height:80px;"></textarea>
+      </div>
+      <div style="display:flex;gap:12px;">
+        <button class="btn btn-gold" onclick="saveEdit()">Save</button>
+        <button class="btn btn-outline" onclick="hideModal(&#39;upload-modal&#39;)">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal-overlay" id="delete-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" style="color:var(--red);">Delete Account</span>
+      <button class="modal-close" onclick="hideModal(&#39;delete-modal&#39;)">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:24px;">This will permanently delete your account, all 14 uploads, and your profile data. There's no going back.</p>
+      <div class="form-field">
+        <label>Type DELETE to confirm</label>
+        <input type="text" id="delete-confirm" placeholder="DELETE">
+      </div>
+      <div style="display:flex;gap:12px;">
+        <button class="btn-red" onclick="confirmDelete()">Delete Everything</button>
+        <button class="btn btn-outline" onclick="hideModal(&#39;delete-modal&#39;)">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <span class="toast-icon">🎬</span>
+  <span id="toast-msg">Changes saved.</span>
+</div>
+
+<script>
+  // Filmstrip decoration
+  const strip = document.getElementById('filmstrip');
+  for (let i = 0; i < 80; i++) {
+    const hole = document.createElement('div');
+    hole.className = 'film-hole';
+    strip.appendChild(hole);
+  }
+
+  // Sample uploads data
+  const uploads = [
+    { id: 1, title: "Drive-In Requiem", type: "Documentary", date: "12 Apr 2025", views: "1.2K", duration: "24:11", emoji: "🎥" },
+    { id: 2, title: "The Last Reel", type: "Short Film", date: "2 Mar 2025", views: "876", duration: "8:43", emoji: "🎞️" },
+    { id: 3, title: "Cassavetes & Me", type: "Essay", date: "18 Feb 2025", views: "540", duration: "12:05", emoji: "🎭" },
+    { id: 4, title: "Neon Noir: A Study", type: "Video Essay", date: "5 Jan 2025", views: "2.1K", duration: "31:44", emoji: "🌃" },
+    { id: 5, title: "35mm vs Digital", type: "Review", date: "20 Dec 2024", views: "437", duration: "9:20", emoji: "📽️" },
+    { id: 6, title: "Watching Tarkovsky", type: "Essay", date: "1 Dec 2024", views: "689", duration: "18:30", emoji: "🌊" },
+  ];
+
+  const drafts = [
+    { id: 7, title: "Untitled Horror Project", type: "Short Film", date: "Draft — 3 May 2025", views: "—", duration: "—", emoji: "👁️" },
+    { id: 8, title: "Irish Cinema History", type: "Documentary", date: "Draft — 28 Apr 2025", views: "—", duration: "—", emoji: "🇮🇪" },
+  ];
+
+  function buildUploadCard(u, isDraft = false) {
+    return `
+      <div class="upload-card" id="card-${u.id}">
+        <div class="upload-thumb-placeholder">
+          ${u.emoji}
+          <div class="upload-type-badge">${u.type}</div>
+          ${u.duration !== '—' ? `<div class="upload-duration">${u.duration}</div>` : ''}
+        </div>
+        <div class="upload-info">
+          <div class="upload-title">${u.title}</div>
+          <div class="upload-meta">
+            <span class="upload-date">${u.date}</span>
+            <span class="upload-views">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              ${u.views}
+            </span>
+          </div>
+        </div>
+        <div class="upload-actions">
+          <button class="upload-action-btn" onclick="editUpload(${u.id}, '${u.title}')">Edit</button>
+          ${!isDraft ? `<button class="upload-action-btn" onclick="">Analytics</button>` : `<button class="upload-action-btn" onclick="">Publish</button>`}
+          <button class="upload-action-btn del" onclick="deleteUpload(${u.id})">Remove</button>
+        </div>
+      </div>`;
+  }
+
+  // Render uploads
+  document.getElementById('uploads-grid').innerHTML = uploads.map(u => buildUploadCard(u)).join('');
+  document.getElementById('drafts-grid').innerHTML = drafts.map(u => buildUploadCard(u, true)).join('');
+
+  // Tab switching
+  function switchTab(name, el) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('tab-' + name).classList.add('active');
+  }
+
+  // Avatar change
+  function handleAvatarChange(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      const src = ev.target.result;
+      const el = document.getElementById('avatar-display');
+      el.innerHTML = `<img src="${src}" style="width:120px;height:120px;border-radius:50%;object-fit:cover;display:block;">`;
+      el.style.fontSize = '0';
+      document.getElementById('nav-avatar-preview').innerHTML = `<img src="${src}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">`;
+    };
+    reader.readAsDataURL(file);
+    showToast('Profile picture updated');
+  }
+
+  // Char count
+  function updateCharCount(el) {
+    document.getElementById('char-count').textContent = el.value.length;
+  }
+
+  // Save profile
+  function saveProfile() {
+    const s = document.getElementById('save-success');
+    s.classList.add('show');
+    showToast('Profile saved successfully');
+    setTimeout(() => s.classList.remove('show'), 3000);
+  }
+
+  // Edit upload modal
+  let editingId = null;
+  function editUpload(id, title) {
+    editingId = id;
+    document.getElementById('modal-title').value = title;
+    showModal('upload-modal');
+  }
+
+  function saveEdit() {
+    hideModal('upload-modal');
+    showToast('Upload updated');
+  }
+
+  function deleteUpload(id) {
+    const card = document.getElementById('card-' + id);
+    if (card) {
+      card.style.transition = 'opacity 0.3s, transform 0.3s';
+      card.style.opacity = '0';
+      card.style.transform = 'scale(0.95)';
+      setTimeout(() => card.remove(), 300);
+    }
+    showToast('Upload removed');
+  }
+
+  // Delete account
+  function confirmDelete() {
+    const val = document.getElementById('delete-confirm').value;
+    if (val === 'DELETE') {
+      hideModal('delete-modal');
+      showToast('Account scheduled for deletion');
+    } else {
+      document.getElementById('delete-confirm').style.borderColor = 'var(--red)';
+      setTimeout(() => document.getElementById('delete-confirm').style.borderColor = '', 1000);
+    }
+  }
+
+  // Modal helpers
+  function showModal(id) { document.getElementById(id).classList.add('open'); }
+  function hideModal(id) { document.getElementById(id).classList.remove('open'); }
+  document.querySelectorAll('.modal-overlay').forEach(m => {
+    m.addEventListener('click', function(e) {
+      if (e.target === this) this.classList.remove('open');
+    });
+  });
+
+  // Toast
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    document.getElementById('toast-msg').textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+</script>
+
+</body></html>
